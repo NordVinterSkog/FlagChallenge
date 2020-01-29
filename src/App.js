@@ -8,9 +8,10 @@ class App extends Component {
     ready: false,
     database: "",
     answers: [],
-    correct: "",
+    correctAnswer: "",
     index: 0,
-    result: ""
+    result: "",
+    points: 0
   };
   shuffle = a => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -45,9 +46,14 @@ class App extends Component {
   pickAnswer = e => {
     console.log(e.target.value);
     let result =
-      e.target.value === this.state.correct.name ? "DOBRZE!" : "ŹLE!";
+      e.target.value === this.state.correctAnswer.name ? "DOBRZE!" : "ŹLE!";
+    let points =
+      e.target.value === this.state.correctAnswer.name
+        ? this.state.points + 1
+        : this.state.points - 1;
     this.setState({
-      result
+      result,
+      points
     });
     this.renderAnswers();
   };
@@ -55,7 +61,7 @@ class App extends Component {
   renderAnswers = () => {
     let index = this.state.index;
     let database = this.state.database;
-    let correct = database[index];
+    let correctAnswer = database[index];
 
     let answers = [];
     for (let i = 0; i < 3; i++) {
@@ -64,15 +70,12 @@ class App extends Component {
     answers.push(this.state.database[this.state.index].name);
     this.shuffle(answers);
 
-    console.log(correct);
     index++;
     this.setState({
       answers,
-      correct,
+      correctAnswer,
       index
     });
-
-    console.log(this.state.index);
   };
 
   render() {
@@ -82,8 +85,8 @@ class App extends Component {
         {this.state.database.length >= 1 ? (
           this.state.ready ? (
             <div className="Game">
-              <h1>{this.state.index}Pick correct country.</h1>
-              <img src={this.state.correct.flag} alt="" />
+              <h1>{this.state.points}Pick correct country.</h1>
+              <img src={this.state.correctAnswer.flag} alt="" />
               <div>{this.state.result}</div>
               <Answers
                 answers={this.state.answers}

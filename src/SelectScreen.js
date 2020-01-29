@@ -10,8 +10,10 @@ const SelectScreen = props => {
       <button value="Africa" onClick={props.selectWorldPart}>
         Africa
       </button>
-      <button value=""></button>
-      <button value=""></button>
+      <button value="Asia" onClick={props.selectWorldPart}>
+        Asia
+      </button>
+      <button value="" onClick={props.selectWorldPart}></button>
     </div>
   );
 };
