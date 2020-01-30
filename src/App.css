@@ -1,30 +1,91 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:300,400&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 50px;
+  font-family: Oswald;
+  background-image: url(img/earth.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 60vw 40vh;
+}
+
+.mainScreen {
+  font-size: 25px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+footer {
+  position: fixed;
+  top: 97vh;
+  left: 0;
+  width: 100vw;
+  font-size: 2vh;
+  padding: ;
+}
+
 img {
   height: 200px;
   border: 4px solid black;
+  animation: appear 0.3s;
 }
 
 button img {
   height: 70px;
   margin: 0 auto;
-}
-
-.mainScreen {
-  margin: 0 auto;
-  text-align: center;
+  border: none;
 }
 
 button {
   margin: 5px;
   height: 150px;
   width: 500px;
-  font-size: 40px;
+  font-size: 30px;
+  font-family: Oswald;
+  padding: 2vw;
   cursor: pointer;
   background-color: #777;
   border: 2px solid black;
-  line-height: 150px;
+  /* line-height: 100px; */
   transition: 0.3s;
+  border-radius: 5%;
+  animation: appear 0.3s;
 }
 
 button:hover {
   background-color: #999;
+}
+
+.leftPanel {
+  width: 50vw;
+  padding: 2vw;
+  text-align: center;
+}
+
+.rightPanel {
+  position: absolute;
+  top: 5vh;
+  left: 60vw;
+}
+
+.gameOver {
+  text-align: center;
+  font-size: 50px;
+  margin: 0 auto;
+  padding: 10vw;
+}
+
+.gameOver button {
+  margin: 5vw;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

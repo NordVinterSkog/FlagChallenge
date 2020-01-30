@@ -5,14 +5,15 @@ import australia from "./img/australia.png";
 import asia from "./img/asia.png";
 import europe from "./img/europe.png";
 import world from "./img/world.png";
+import "./SelectScreen.css";
 
 const SelectScreen = props => {
   return (
     <div className="selectScreen">
-      <h1>Pick one</h1>
+      <h1>Pick a category.</h1>
       <button value="Europe" onClick={props.selectWorldPart}>
         Europe
-        <img src={europe} alt="" />
+        <img src={europe} alt="europe" value="europe" />
       </button>
       <button value="Africa" onClick={props.selectWorldPart}>
         Africa <img src={africa} alt="" />

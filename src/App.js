@@ -4,6 +4,7 @@ import SelectScreen from "./SelectScreen";
 import Answers from "./Answers";
 import GameModeSelect from "./GameModeSelect";
 import Timer from "./Timer";
+import IntroScreen from "./IntroScreen";
 
 class App extends Component {
   state = {
@@ -18,7 +19,8 @@ class App extends Component {
     time: "",
     timer: "",
     howManyFlags: "",
-    timeout: false
+    timeout: false,
+    loaded: false
   };
   shuffle = a => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -89,11 +91,12 @@ class App extends Component {
   pickAnswer = e => {
     console.log(e.target.value);
     let result =
-      e.target.value === this.state.correctAnswer.name ? "DOBRZE!" : "ŹLE!";
-    let points =
-      e.target.value === this.state.correctAnswer.name
-        ? this.state.points + 1
-        : this.state.points - 1;
+      e.target.value === this.state.correctAnswer.name ? "Good!" : "Wrong!";
+    let points = this.state.points;
+    if (e.target.value === this.state.correctAnswer.name) {
+      points++;
+    }
+
     this.setState({
       result,
       points
@@ -101,83 +104,122 @@ class App extends Component {
     this.renderAnswers();
   };
 
+  timeOut = () => {
+    this.setState({
+      timeout: true
+    });
+  };
+
   renderAnswers = () => {
     let round = this.state.round;
-    let database = this.state.database;
-    let correctAnswer = database.shift();
+    let index = this.state.index;
+    let database = [...this.state.database];
+    let correctAnswer = database[index];
+    console.log(database);
 
     let answers = [];
+
+    database.splice(index, 1);
     for (let i = 0; i < 3; i++) {
-      let answer = database[Math.floor(Math.random() * database.length)].name;
+      let randomIndex = Math.floor(Math.random() * database.length);
+      let answer = database[randomIndex].name;
+
+      database.splice(randomIndex, 1);
       answers.push(answer);
     }
     answers.push(correctAnswer.name);
     this.shuffle(answers);
-
+    console.log(database);
+    console.log(this.state.database);
+    index++;
     round++;
     this.setState({
       answers,
       correctAnswer,
-      round
+      round,
+      index
     });
   };
 
+  introEnd = setTimeout(() => {
+    this.setState({
+      loaded: true
+    });
+  }, 2000);
+
   render() {
-    console.log(this.state.ready);
     console.log(this.state.time);
+    let finalScore =
+      (Number(this.state.points) / Number(this.state.howManyFlags)) * 100;
+
     return (
       <wrapper>
-        <div className="mainScreen">
-          {this.state.database.length >= 1 ? (
-            this.state.ready ? (
-              this.state.round > this.state.howManyFlags ||
-              this.state.timeout ? (
-                <div className="endGame">
-                  <div>Koniec</div>
-                  <div>
-                    Score: {this.state.points}/{this.state.howManyFlags}
-                  </div>
-                  <button onClick={this.startOver}>Jeszcze raz.</button>
-                </div>
-              ) : (
-                //MAIN GAME SCREEN
+        {this.state.loaded ? (
+          <>
+            <div className="mainScreen">
+              {this.state.database.length >= 1 ? (
+                this.state.ready ? (
+                  this.state.round > this.state.howManyFlags ||
+                  this.state.timeout ? (
+                    //GAME OVER SCREEN
 
-                <div className="Game">
-                  <Timer time={this.state.time} />
-                  <h1>
-                    ({this.state.round}/{this.state.howManyFlags})Pick correct
-                    country.
-                  </h1>
-                  <img src={this.state.correctAnswer.flag} alt="" />
-                  <div>{this.state.result}</div>
-                  <Answers
-                    answers={this.state.answers}
-                    pickAnswer={this.pickAnswer}
-                  />
-                </div>
-              )
-            ) : (
-              <GameModeSelect startGame={this.startGame} />
-            )
-          ) : (
-            <SelectScreen
-              selectWorldPart={this.selectWorldPart}
-              renderAnswers={this.renderAnswers}
-            />
-          )}
-        </div>
-        <footer>
-          <div>
-            Icons made by{" "}
-            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
-              Freepik
-            </a>{" "}
-            from{" "}
-            <a href="https://www.flaticon.com/" title="Flaticon">
-              www.flaticon.com
-            </a>
-          </div>
-        </footer>
+                    <div className="gameOver">
+                      <div>Game Over</div>
+                      <div>Score: {finalScore}%</div>
+                      <button onClick={this.startOver}>Start over.</button>
+                    </div>
+                  ) : (
+                    //MAIN GAME SCREEN
+
+                    <div className="Game">
+                      <div className="leftPanel">
+                        {" "}
+                        <h1>
+                          ({this.state.round}/{this.state.howManyFlags}) Match a
+                          country.
+                        </h1>
+                        <img src={this.state.correctAnswer.flag} alt="" />
+                        <Timer time={this.state.time} timeout={this.timeOut} />
+                        <div>{this.state.result}</div>
+                      </div>
+                      <div className="rightPanel">
+                        {" "}
+                        <Answers
+                          answers={this.state.answers}
+                          pickAnswer={this.pickAnswer}
+                        />
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  <GameModeSelect startGame={this.startGame} />
+                )
+              ) : (
+                <SelectScreen
+                  selectWorldPart={this.selectWorldPart}
+                  renderAnswers={this.renderAnswers}
+                />
+              )}
+            </div>
+            <footer>
+              <div>
+                Icons made by{" "}
+                <a
+                  href="https://www.flaticon.com/authors/freepik"
+                  title="Freepik"
+                >
+                  Freepik
+                </a>{" "}
+                from{" "}
+                <a href="https://www.flaticon.com/" title="Flaticon">
+                  www.flaticon.com
+                </a>
+              </div>
+            </footer>
+          </>
+        ) : (
+          <IntroScreen />
+        )}
       </wrapper>
     );
   }
