@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import SelectScreen from "./SelectScreen";
 import Answers from "./Answers";
+import GameModeSelect from "./GameModeSelect";
+import Timer from "./Timer";
 
 class App extends Component {
   state = {
@@ -11,7 +13,12 @@ class App extends Component {
     correctAnswer: "",
     index: 0,
     result: "",
-    points: 0
+    points: 0,
+    round: 0,
+    time: "",
+    timer: "",
+    howManyFlags: "",
+    timeout: false
   };
   shuffle = a => {
     for (let i = a.length - 1; i > 0; i--) {
@@ -22,8 +29,24 @@ class App extends Component {
   };
   selectWorldPart = e => {
     console.log(e.target.value);
-    fetch(`https://restcountries.eu/rest/v2/region/${e.target.value}?fields=name;flag
+    if (e.target.value !== "world") {
+      console.log(e.target.value);
+      fetch(`https://restcountries.eu/rest/v2/region/${e.target.value}?fields=name;flag
     `)
+        .then(results => {
+          return results.json();
+        })
+        .then(data => {
+          let database = data;
+          this.shuffle(database);
+          this.setState({ database });
+          console.log(this.state.database);
+          console.log(this.state.ready);
+        });
+      return;
+    } else {
+    }
+    fetch(`https://restcountries.eu/rest/v2/all?fields=name;flag`)
       .then(results => {
         return results.json();
       })
@@ -35,11 +58,31 @@ class App extends Component {
       });
   };
 
-  startGame = () => {
+  startOver = () => {
     this.setState({
-      ready: true
+      ready: false,
+      database: "",
+      answers: [],
+      correctAnswer: "",
+      index: 0,
+      result: "",
+      points: 0,
+      round: 0,
+      time: "",
+      timer: "",
+      howManyFlags: "",
+      timeout: false
     });
-    console.log(this.state.index);
+  };
+
+  startGame = e => {
+    console.log(e.target.value);
+    this.setState({
+      ready: true,
+      howManyFlags: e.target.value,
+      time: e.target.value * 4,
+      timer: e.target.value * 4
+    });
     this.renderAnswers();
   };
 
@@ -59,50 +102,83 @@ class App extends Component {
   };
 
   renderAnswers = () => {
-    let index = this.state.index;
+    let round = this.state.round;
     let database = this.state.database;
-    let correctAnswer = database[index];
+    let correctAnswer = database.shift();
 
     let answers = [];
     for (let i = 0; i < 3; i++) {
-      answers.push(database[Math.floor(Math.random() * database.length)].name);
+      let answer = database[Math.floor(Math.random() * database.length)].name;
+      answers.push(answer);
     }
-    answers.push(this.state.database[this.state.index].name);
+    answers.push(correctAnswer.name);
     this.shuffle(answers);
 
-    index++;
+    round++;
     this.setState({
       answers,
       correctAnswer,
-      index
+      round
     });
   };
 
   render() {
-    console.log(this.state.answers);
+    console.log(this.state.ready);
+    console.log(this.state.time);
     return (
-      <div className="mainScreen">
-        {this.state.database.length >= 1 ? (
-          this.state.ready ? (
-            <div className="Game">
-              <h1>{this.state.points}Pick correct country.</h1>
-              <img src={this.state.correctAnswer.flag} alt="" />
-              <div>{this.state.result}</div>
-              <Answers
-                answers={this.state.answers}
-                pickAnswer={this.pickAnswer}
-              />
-            </div>
+      <wrapper>
+        <div className="mainScreen">
+          {this.state.database.length >= 1 ? (
+            this.state.ready ? (
+              this.state.round > this.state.howManyFlags ||
+              this.state.timeout ? (
+                <div className="endGame">
+                  <div>Koniec</div>
+                  <div>
+                    Score: {this.state.points}/{this.state.howManyFlags}
+                  </div>
+                  <button onClick={this.startOver}>Jeszcze raz.</button>
+                </div>
+              ) : (
+                //MAIN GAME SCREEN
+
+                <div className="Game">
+                  <Timer time={this.state.time} />
+                  <h1>
+                    ({this.state.round}/{this.state.howManyFlags})Pick correct
+                    country.
+                  </h1>
+                  <img src={this.state.correctAnswer.flag} alt="" />
+                  <div>{this.state.result}</div>
+                  <Answers
+                    answers={this.state.answers}
+                    pickAnswer={this.pickAnswer}
+                  />
+                </div>
+              )
+            ) : (
+              <GameModeSelect startGame={this.startGame} />
+            )
           ) : (
-            <button onClick={this.startGame}>START</button>
-          )
-        ) : (
-          <SelectScreen
-            selectWorldPart={this.selectWorldPart}
-            renderAnswers={this.renderAnswers}
-          />
-        )}
-      </div>
+            <SelectScreen
+              selectWorldPart={this.selectWorldPart}
+              renderAnswers={this.renderAnswers}
+            />
+          )}
+        </div>
+        <footer>
+          <div>
+            Icons made by{" "}
+            <a href="https://www.flaticon.com/authors/freepik" title="Freepik">
+              Freepik
+            </a>{" "}
+            from{" "}
+            <a href="https://www.flaticon.com/" title="Flaticon">
+              www.flaticon.com
+            </a>
+          </div>
+        </footer>
+      </wrapper>
     );
   }
 }
