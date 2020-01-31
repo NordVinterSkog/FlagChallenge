@@ -5,6 +5,7 @@ import Answers from "./Answers";
 import GameModeSelect from "./GameModeSelect";
 import Timer from "./Timer";
 import IntroScreen from "./IntroScreen";
+import earth from "./img/earth.png";
 
 class App extends Component {
   state = {
@@ -91,7 +92,9 @@ class App extends Component {
   pickAnswer = e => {
     console.log(e.target.value);
     let result =
-      e.target.value === this.state.correctAnswer.name ? "Good!" : "Wrong!";
+      e.target.value === this.state.correctAnswer.name
+        ? "Good!"
+        : `Wrong! It's ${this.state.correctAnswer.name}!`;
     let points = this.state.points;
     if (e.target.value === this.state.correctAnswer.name) {
       points++;
@@ -145,7 +148,7 @@ class App extends Component {
     this.setState({
       loaded: true
     });
-  }, 2000);
+  }, 2500);
 
   render() {
     console.log(this.state.time);
@@ -154,6 +157,8 @@ class App extends Component {
 
     return (
       <wrapper>
+        
+        <img className="globe" src={earth} alt="" />
         {this.state.loaded ? (
           <>
             <div className="mainScreen">

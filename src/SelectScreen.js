@@ -10,7 +10,7 @@ import "./SelectScreen.css";
 const SelectScreen = props => {
   return (
     <div className="selectScreen">
-      <h1>Pick a category.</h1>
+      <h1>Pick a category!</h1>
       <button value="Europe" onClick={props.selectWorldPart}>
         Europe
         <img src={europe} alt="europe" value="europe" />

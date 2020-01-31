@@ -1,0 +1,48 @@
+.introScreen {
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+}
+
+h1.title {
+  display: block;
+  position: absolute;
+  top: 8vh;
+  left: 15vw;
+  animation: fadein 2s;
+  font-size: 100px;
+  margin-bottom: 0;
+}
+
+.Nor {
+  color: blue;
+  margin-top: 0;
+  position: absolute;
+  top: 35vh;
+  left: 15vw;
+  animation: rollin 2s;
+}
+
+@keyframes fadein {
+  0% {
+    font-size: 0;
+  }
+  20% {
+    font-size: 0;
+  }
+  100% {
+    font-size: 100px;
+  }
+}
+
+@keyframes rollin {
+  0% {
+    left: -20vw;
+  }
+  50% {
+    left: -30vw;
+  }
+  100% {
+    left: 15vw;
+  }
+}
