@@ -4,13 +4,13 @@ import "./GameModeSelect.css";
 const GameModeSelect = props => {
   return (
     <div className="gameLenghtSelect">
-      <h1>Pick game mode</h1>
+      <h1>Choose game mode.</h1>
       <div className="buttons">
         <button value={5} onClick={props.startGame}>
-          Short game
+          Short
         </button>
         <button value={20} onClick={props.startGame}>
-          Long game
+          Long
         </button>
       </div>
     </div>

@@ -37,7 +37,7 @@ h1.title {
 
 @keyframes rollin {
   0% {
-    left: -20vw;
+    left: -30vw;
   }
   50% {
     left: -30vw;

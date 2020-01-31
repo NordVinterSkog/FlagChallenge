@@ -157,7 +157,6 @@ class App extends Component {
 
     return (
       <wrapper>
-        
         <img className="globe" src={earth} alt="" />
         {this.state.loaded ? (
           <>
@@ -169,7 +168,7 @@ class App extends Component {
                     //GAME OVER SCREEN
 
                     <div className="gameOver">
-                      <div>Game Over</div>
+                      <div>Game over.</div>
                       <div>Score: {finalScore}%</div>
                       <button onClick={this.startOver}>Start over.</button>
                     </div>
