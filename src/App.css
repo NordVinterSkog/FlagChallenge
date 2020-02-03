@@ -5,10 +5,6 @@ body {
   padding: 0;
   font-size: 50px;
   font-family: Oswald;
-  /* background-image: url(img/earth.png); */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: 60vw 40vh;
 }
 
 img.globe {
@@ -89,6 +85,71 @@ button:hover {
 
 .gameOver button {
   margin: 5vw;
+}
+
+@media (orientation: portrait) {
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 5vh;
+    font-family: Oswald;
+  }
+
+  img.globe {
+    position: fixed;
+    top: 60vh;
+    left: 65vw;
+  }
+
+  .mainScreen {
+    font-size: 3vh;
+    text-align: center;
+  }
+
+  img {
+    height: 15vh;
+    border: 4px solid black;
+    animation: appear 0.3s;
+  }
+
+  button img {
+    height: 10vh;
+    margin: 0 auto;
+    border: none;
+  }
+
+  button {
+    margin: 5px;
+    padding: 0;
+    height: 20vh;
+    width: 38vw;
+    font-size: 3vh;
+  }
+
+  .leftPanel {
+    font-size: 3vh;
+    width: 50vw;
+    padding: 2vw;
+    text-align: center;
+  }
+
+  .rightPanel {
+    font-size: 1vh;
+    position: absolute;
+    top: 10vh;
+    left: 60vw;
+  }
+
+  .gameOver {
+    text-align: center;
+    font-size: 50px;
+    margin: 0 auto;
+    padding: 10vw;
+  }
+
+  .gameOver button {
+    margin: 5vw;
+  }
 }
 
 @keyframes appear {

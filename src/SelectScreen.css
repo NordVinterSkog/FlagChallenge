@@ -1,3 +1,9 @@
 h1 {
   text-align: center;
 }
+
+@media (orientation: portrait) {
+  .selectScreen button {
+    font-size: 0;
+  }
+}

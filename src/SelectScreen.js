@@ -13,7 +13,7 @@ const SelectScreen = props => {
       <h1>Choose a category!</h1>
       <button value="Europe" onClick={props.selectWorldPart}>
         Europe
-        <img src={europe} alt="europe" value="europe" />
+        <img src={europe} alt="europe" value="Europe" />
       </button>
       <button value="Africa" onClick={props.selectWorldPart}>
         Africa <img src={africa} alt="" />

@@ -42,6 +42,12 @@ class App extends Component {
         .then(data => {
           let database = data;
           this.shuffle(database);
+
+          /// so it doesn't cause confusion with Norway
+
+          database = database.filter(
+            country => country.name !== "Svalbard and Jan Mayen"
+          );
           this.setState({ database });
           console.log(this.state.database);
           console.log(this.state.ready);
