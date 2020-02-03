@@ -31,10 +31,10 @@ class App extends Component {
     return a;
   };
   selectWorldPart = e => {
-    console.log(e.target.value);
-    if (e.target.value !== "world") {
-      console.log(e.target.value);
-      fetch(`https://restcountries.eu/rest/v2/region/${e.target.value}?fields=name;flag
+    console.log(e.target.id);
+    if (e.target.id !== "world") {
+      console.log(e.target.id);
+      fetch(`https://restcountries.eu/rest/v2/region/${e.target.id}?fields=name;flag
     `)
         .then(results => {
           return results.json();
@@ -158,8 +158,9 @@ class App extends Component {
 
   render() {
     console.log(this.state.time);
-    let finalScore =
-      (Number(this.state.points) / Number(this.state.howManyFlags)) * 100;
+    let finalScore = Math.floor(
+      (Number(this.state.points) / Number(this.state.howManyFlags)) * 100
+    );
 
     return (
       <wrapper>

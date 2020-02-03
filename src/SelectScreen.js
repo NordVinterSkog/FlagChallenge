@@ -11,28 +11,28 @@ const SelectScreen = props => {
   return (
     <div className="selectScreen">
       <h1>Choose a category!</h1>
-      <button value="Europe" onClick={props.selectWorldPart}>
+      <button id="Europe" onClick={props.selectWorldPart.bind(this)}>
         Europe
-        <img src={europe} alt="europe" value="Europe" />
+        <img src={europe} alt="europe" id="Europe" />
       </button>
-      <button value="Africa" onClick={props.selectWorldPart}>
-        Africa <img src={africa} alt="" />
+      <button id="Africa" onClick={props.selectWorldPart}>
+        Africa <img src={africa} id="Africa" alt="" />
       </button>
-      <button value="Asia" onClick={props.selectWorldPart}>
+      <button id="Asia" onClick={props.selectWorldPart}>
         Asia
-        <img src={asia} alt="" />
+        <img src={asia} id="Asia" alt="" />
       </button>
-      <button value="Americas" onClick={props.selectWorldPart}>
+      <button id="Americas" onClick={props.selectWorldPart}>
         Americas
-        <img src={america} alt="" />
+        <img src={america} id="Americas" alt="" />
       </button>
-      <button value="Oceania" onClick={props.selectWorldPart}>
+      <button id="Oceania" onClick={props.selectWorldPart}>
         Oceania
-        <img src={australia} alt="" />
+        <img src={australia} id="Oceania" alt="" />
       </button>
-      <button value="world" onClick={props.selectWorldPart}>
+      <button id="world" onClick={props.selectWorldPart}>
         World
-        <img src={world} alt="" />
+        <img src={world} id="world" alt="" />
       </button>
     </div>
   );
