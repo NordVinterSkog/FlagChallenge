@@ -6,6 +6,7 @@ import GameModeSelect from "./GameModeSelect";
 import Timer from "./Timer";
 import IntroScreen from "./IntroScreen";
 import earth from "./img/earth.png";
+import GameOverScreen from "./GameOverScreen";
 
 class App extends Component {
   state = {
@@ -13,12 +14,12 @@ class App extends Component {
     database: "",
     answers: [],
     correctAnswer: "",
+    correctAnswers: [],
     index: 0,
     result: "",
     points: 0,
     round: 0,
     time: "",
-    timer: "",
     howManyFlags: "",
     timeout: false,
     loaded: false
@@ -73,12 +74,12 @@ class App extends Component {
       database: "",
       answers: [],
       correctAnswer: "",
+      correctAnswers: [],
       index: 0,
       result: "",
       points: 0,
       round: 0,
       time: "",
-      timer: "",
       howManyFlags: "",
       timeout: false
     });
@@ -106,9 +107,13 @@ class App extends Component {
       points++;
     }
 
+    let correctAnswers = this.state.correctAnswers;
+    correctAnswers.push(this.state.correctAnswer);
+
     this.setState({
       result,
-      points
+      points,
+      correctAnswers
     });
     this.renderAnswers();
   };
@@ -157,7 +162,7 @@ class App extends Component {
   }, 2500);
 
   render() {
-    console.log(this.state.time);
+    console.log(this.state.correctAnswers);
     let finalScore = Math.floor(
       (Number(this.state.points) / Number(this.state.howManyFlags)) * 100
     );
@@ -174,15 +179,15 @@ class App extends Component {
                   this.state.timeout ? (
                     //GAME OVER SCREEN
 
-                    <div className="gameOver">
-                      <div>Game over.</div>
-                      <div>Score: {finalScore}%</div>
-                      <button onClick={this.startOver}>Start over.</button>
-                    </div>
+                    <GameOverScreen
+                      startOver={this.startOver}
+                      finalScore={finalScore}
+                      correctAnswers={this.state.correctAnswers}
+                    />
                   ) : (
                     //MAIN GAME SCREEN
 
-                    <div className="Game">
+                    <div className="game">
                       <div className="leftPanel">
                         {" "}
                         <h1>
@@ -192,18 +197,19 @@ class App extends Component {
                         <img src={this.state.correctAnswer.flag} alt="" />
                         <Timer time={this.state.time} timeout={this.timeOut} />
                         <div>{this.state.result}</div>
-                      </div>
-                      <div className="rightPanel">
-                        {" "}
-                        <Answers
-                          answers={this.state.answers}
-                          pickAnswer={this.pickAnswer}
-                        />
-                      </div>
+                      </div>{" "}
+                      <Answers
+                        answers={this.state.answers}
+                        pickAnswer={this.pickAnswer}
+                        startOver={this.startOver}
+                      />
                     </div>
                   )
                 ) : (
-                  <GameModeSelect startGame={this.startGame} />
+                  <GameModeSelect
+                    startGame={this.startGame}
+                    startOver={this.startOver}
+                  />
                 )
               ) : (
                 <SelectScreen

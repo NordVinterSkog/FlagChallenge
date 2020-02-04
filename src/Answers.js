@@ -7,7 +7,14 @@ const Answers = props => {
       {answer}
     </button>
   ));
-  return <div>{answers}</div>;
+  return (
+    <div className="rightPanel">
+      {answers}
+      <button className="back" onClick={props.startOver}>
+        Back
+      </button>
+    </div>
+  );
 };
 
 export default Answers;
