@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/FlagChallenge/static/css/main.d0bcf6c3.chunk.css",
+    "main.js": "/FlagChallenge/static/js/main.deb3c3d6.chunk.js",
+    "main.js.map": "/FlagChallenge/static/js/main.deb3c3d6.chunk.js.map",
+    "runtime-main.js": "/FlagChallenge/static/js/runtime-main.2de952f6.js",
+    "runtime-main.js.map": "/FlagChallenge/static/js/runtime-main.2de952f6.js.map",
+    "static/js/2.c6006e05.chunk.js": "/FlagChallenge/static/js/2.c6006e05.chunk.js",
+    "static/js/2.c6006e05.chunk.js.map": "/FlagChallenge/static/js/2.c6006e05.chunk.js.map",
+    "index.html": "/FlagChallenge/index.html",
+    "precache-manifest.5d99537b0ba7276634c5ddb53adfbcbb.js": "/FlagChallenge/precache-manifest.5d99537b0ba7276634c5ddb53adfbcbb.js",
+    "service-worker.js": "/FlagChallenge/service-worker.js",
+    "static/css/main.d0bcf6c3.chunk.css.map": "/FlagChallenge/static/css/main.d0bcf6c3.chunk.css.map",
+    "static/js/2.c6006e05.chunk.js.LICENSE": "/FlagChallenge/static/js/2.c6006e05.chunk.js.LICENSE",
+    "static/media/africa.png": "/FlagChallenge/static/media/africa.a32a5437.png",
+    "static/media/america.png": "/FlagChallenge/static/media/america.45571595.png",
+    "static/media/asia.png": "/FlagChallenge/static/media/asia.798a84b5.png",
+    "static/media/australia.png": "/FlagChallenge/static/media/australia.2bd56f28.png",
+    "static/media/earth.png": "/FlagChallenge/static/media/earth.6703263a.png",
+    "static/media/europe.png": "/FlagChallenge/static/media/europe.921bbe36.png",
+    "static/media/world.png": "/FlagChallenge/static/media/world.aacbc63c.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2de952f6.js",
+    "static/js/2.c6006e05.chunk.js",
+    "static/css/main.d0bcf6c3.chunk.css",
+    "static/js/main.deb3c3d6.chunk.js"
+  ]
+}
