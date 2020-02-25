@@ -10,6 +10,7 @@ html {
 body {
   font-size: 10vh;
   font-family: Oswald;
+  background-color: #fff;
 }
 
 .mainScreen button.back {
@@ -65,7 +66,7 @@ button img {
 
 button {
   margin: 5px;
-  height: 15vh;
+  height: 20vh;
   width: 35vw;
   font-size: 30px;
   font-family: Oswald;
@@ -229,8 +230,9 @@ button:hover {
 
   button {
     margin: 1vw;
-    height: 20vh;
-    width: 45vw;
+    height: 18vh;
+    width: 25vw;
+    font-size: 4vh;
     text-align: center;
   }
 

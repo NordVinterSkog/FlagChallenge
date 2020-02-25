@@ -23,18 +23,17 @@
   font-size: 3vh;
   padding: 2vh;
   position: absolute;
-  top: -100vh;
   height: 50vh;
-  animation: appear 3s, rollcall 20s linear;
+  animation: appear 3s, rollcall 20s 1s linear both, appear 3s 20s reverse;
   z-index: -1;
 }
 
 @keyframes rollcall {
   0% {
-    top: 100vh;
+    transform: translateY(100%);
   }
   100% {
-    top: -100vh;
+    transform: translateY(-300%);
   }
 }
 
